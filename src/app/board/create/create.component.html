@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h5 class="modal-title">Comment</h5>
+  <button type="button" class="close ml-auto" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form class="col" [formGroup]="commentForm" novalidate>
+      <fieldset [disabled]="isLoading">
+        <div class="alert alert-danger" *ngIf="commentForm.invalid && showAlert">
+          <i class="fas fa-exclamation-circle"></i> Correct the highlighted fields
+        </div>
+        <div class="form-row mb-4">
+          <div class="col">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name" maxlength="50"
+              [ngClass]="{'is-invalid': commentForm.controls.name.invalid && (commentForm.controls.name.touched || showAlert)}" />
+          </div>
+        </div>
+        <div class="form-row mb-4">
+          <div class="col">
+            <label>Comment</label>
+            <textarea class="form-control edit-post-textarea" formControlName="body" maxlength="6000"
+              [ngClass]="{'is-invalid': commentForm.controls.body.invalid && (commentForm.controls.body.touched || showAlert)}"
+              placeholder="Write something..."></textarea>
+          </div>
+        </div>
+        <div class="form-row mt-3">
+          <div class="col">
+            <button type="button" class="btn btn-primary" (click)="add()">
+              <i class="fas fa-cog fa-spin" *ngIf="isLoading"></i>
+              <i class="fas fa-check" *ngIf="!isLoading"></i> Save</button>
+            <button type="button" class="btn btn-secondary ml-1" (click)="closeModal()"><i class="fas fa-ban"></i>
+              Cancel</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

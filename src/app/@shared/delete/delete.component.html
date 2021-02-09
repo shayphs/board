@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Please confirm</h4>
+  <button type="button" class="close ml-auto" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="text-danger">Are you sure you want to delete?</p>
+  <p class="bold">
+    {{ title }}
+  </p>
+  <div *ngIf="typeConfirm">
+    <p>
+      Type: <code class="text-danger bold">Yes</code> to confirm deletion!
+    </p>
+    <input type="text" class="form-control" [(ngModel)]="name" [ngClass]="{'is-valid': name.toLowerCase() === 'yes'}"
+      placeholder="Type here Yes" />
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" ngbAutofocus class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+  <button type="button" class="btn btn-danger" [disabled]="name.toLowerCase() !== 'yes' && typeConfirm"
+    (click)="delete()">Delete</button>
+</div>

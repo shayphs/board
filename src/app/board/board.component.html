@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col-auto">
+      <h3>Board</h3>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-light inline" (click)="writeNewComment()" ngbTooltip="Create new comment">
+        <i class="fas fa-plus"></i></button>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-md-3 mb-5" *ngFor="let comment of comments; let i = index" [@inOutAnimation]>
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <div class="float-right" ngbDropdown placement="bottom-right">
+            <a ngbDropdownToggle><i class="fas fa-ellipsis-h"></i></a>
+            <div ngbDropdownMenu class="shadow">
+              <a class="dropdown-item pointer" (click)="writeNewComment(i)">
+                <i class="fas fa-pencil-alt"></i> Edit</a>
+              <a class="dropdown-item pointer" (click)="deleteConfirm(comment)">
+                <i class="fas fa-trash-alt"></i> Delete</a>
+            </div>
+          </div>
+          <h4 class="my-0 text-capitalize">{{ comment.name }}</h4>
+        </div>
+        <div class="card-body">
+          <span *ngIf="!showSummary[i]">{{ comment.body | slice:0:140 }}</span>
+          <div class="news-summary" *ngIf="showSummary[i]">{{ comment.body }}</div>
+          <a class="pointer" *ngIf="comment.body.length > 140" (click)="showSummary[i]=!showSummary[i]">See <span
+              *ngIf="!showSummary[i]">More...</span><span *ngIf="showSummary[i]">Less...</span></a>
+        </div>
+        <div class="card-footer p-2">
+          <small div class="text-muted">
+             {{ comment.date | date: 'medium' }}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
